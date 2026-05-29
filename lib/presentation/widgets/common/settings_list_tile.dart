@@ -11,21 +11,23 @@ class SettingsListTile extends StatelessWidget {
     required this.subtitle,
     required this.icon,
     required this.onTap,
+    this.compact = false,
   });
 
   final String title;
   final String subtitle;
   final IconData icon;
   final VoidCallback onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final tokens = TraceletVisualTokens.of(context);
 
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
+      contentPadding: EdgeInsets.symmetric(
         horizontal: TraceletSpacing.listHorizontal,
-        vertical: TraceletSpacing.listVertical,
+        vertical: compact ? 4 : TraceletSpacing.listVertical,
       ),
       leading: _SettingsIconBadge(icon: icon, color: tokens.textMuted),
       title: Text(title, style: TraceletTypography.listTitle(context)),
@@ -33,9 +35,11 @@ class SettingsListTile extends StatelessWidget {
         subtitle,
         style: TraceletTypography.listSubtitle(context),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: TraceletShapes.listTileRadius,
-      ),
+      shape: compact
+          ? null
+          : RoundedRectangleBorder(
+              borderRadius: TraceletShapes.listTileRadius,
+            ),
       onTap: onTap,
     );
   }
