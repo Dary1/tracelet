@@ -6,16 +6,20 @@ import 'package:tracelet/domain/models/app_mode.dart';
 import 'package:tracelet/domain/models/system_trace.dart';
 import 'package:tracelet/domain/repositories/system_trace_repository.dart';
 import 'package:tracelet/domain/system_traces/system_trace_id.dart';
+import 'package:tracelet/domain/system_traces/system_trace_paths.dart';
 import 'package:tracelet/domain/system_traces/system_trace_stroke.dart';
+import 'package:tracelet/domain/system_traces/system_trace_theme_id.dart';
 import 'package:tracelet/domain/system_traces/system_trace_validator.dart';
 
 class AssetSystemTraceRepository implements SystemTraceRepository {
-  AssetSystemTraceRepository({AssetBundle? bundle})
-      : _bundle = bundle ?? rootBundle;
-
-  static const assetDirectory = 'assets/system_traces';
+  AssetSystemTraceRepository({
+    AssetBundle? bundle,
+    SystemTraceThemeId themeId = SystemTraceThemeId.active,
+  })  : _bundle = bundle ?? rootBundle,
+        _themeId = themeId;
 
   final AssetBundle _bundle;
+  final SystemTraceThemeId _themeId;
   final Map<SystemTraceId, SystemTraceDocument> _documents = {};
   var _loaded = false;
 
@@ -28,7 +32,8 @@ class AssetSystemTraceRepository implements SystemTraceRepository {
 
     for (final id in SystemTraceId.values) {
       final fileName = '${id.name}.json';
-      final raw = await _bundle.loadString('$assetDirectory/$fileName');
+      final assetPath = SystemTracePaths.assetPath(_themeId, id);
+      final raw = await _bundle.loadString(assetPath);
       final Object? json;
       try {
         json = jsonDecode(raw);
@@ -81,5 +86,5 @@ class AssetSystemTraceRepository implements SystemTraceRepository {
 }
 
 final systemTraceRepositoryProvider = Provider<SystemTraceRepository>(
-  (ref) => AssetSystemTraceRepository(),
+  (ref) => AssetSystemTraceRepository(themeId: SystemTraceThemeId.active),
 );

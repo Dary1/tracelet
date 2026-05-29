@@ -2,18 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tracelet/domain/system_traces/system_trace_id.dart';
+import 'package:tracelet/domain/system_traces/system_trace_paths.dart';
+import 'package:tracelet/domain/system_traces/system_trace_theme_id.dart';
 import 'package:tracelet/domain/system_traces/system_trace_validator.dart';
 
-/// Validates syntax and structure of assets/system_traces/*.json
+/// Validates syntax and structure of assets/system_traces/<theme>/*.json
 ///
 /// Usage:
 ///   dart run tool/validate_system_traces.dart
-///   dart run tool/validate_system_traces.dart assets/system_traces/modeSpecificUserSend.json
+///   dart run tool/validate_system_traces.dart assets/system_traces/default/modeSpecificUserSend.json
 Future<void> main(List<String> args) async {
   final files = args.isEmpty
-      ? SystemTraceId.values
-          .map((id) => File('assets/system_traces/${id.name}.json'))
-          .toList()
+      ? [
+          for (final theme in SystemTraceThemeId.values)
+            for (final id in SystemTraceId.values)
+              File(SystemTracePaths.assetPath(theme, id)),
+        ]
       : args.map(File.new).toList();
 
   var failed = 0;

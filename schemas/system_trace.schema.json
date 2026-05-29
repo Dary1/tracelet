@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tracelet.app/schemas/system_trace.schema.json",
   "title": "Tracelet System Trace",
-  "description": "Schema for assets/system_traces/*.json",
+  "description": "Schema for assets/system_traces/<theme>/*.json",
   "type": "object",
   "additionalProperties": false,
   "required": ["id", "kind", "coordinateSpace", "fadeDurationMs", "strokes"],

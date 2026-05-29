@@ -25,4 +25,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/system_traces/
+    - assets/system_traces/default/

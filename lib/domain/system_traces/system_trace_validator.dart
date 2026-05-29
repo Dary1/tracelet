@@ -16,7 +16,7 @@ class SystemTraceValidationException implements Exception {
   }
 }
 
-/// Validates JSON structure for assets/system_traces/*.json before parsing.
+/// Validates JSON structure for assets/system_traces/<theme>/*.json before parsing.
 abstract final class SystemTraceValidator {
   static const _hexColorPattern = r'^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$';
   static final _hexColorRegex = RegExp(_hexColorPattern);

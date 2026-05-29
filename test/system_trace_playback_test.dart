@@ -8,7 +8,10 @@ import 'package:tracelet/domain/models/system_trace.dart';
 import 'package:tracelet/domain/models/trace_playback_profile.dart';
 import 'package:tracelet/domain/models/trace_point.dart';
 import 'package:tracelet/domain/models/trace_profile.dart';
+import 'package:tracelet/domain/system_traces/system_trace_id.dart';
+import 'package:tracelet/domain/system_traces/system_trace_paths.dart';
 import 'package:tracelet/domain/system_traces/system_trace_playback.dart';
+import 'package:tracelet/domain/system_traces/system_trace_theme_id.dart';
 import 'package:tracelet/domain/traces/trace_point_player.dart';
 
 class _RecordingPlaybackHost implements TracePointPlaybackHost {
@@ -53,7 +56,12 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('system trace assets convert to timed points for TracePointPlayer', () async {
-    final raw = await rootBundle.loadString('assets/system_traces/messagePlayback.json');
+    final raw = await rootBundle.loadString(
+      SystemTracePaths.assetPath(
+        SystemTraceThemeId.defaultTheme,
+        SystemTraceId.messagePlayback,
+      ),
+    );
     final document = SystemTraceDocument.fromJson(
       jsonDecode(raw) as Map<String, dynamic>,
     );

@@ -4,32 +4,39 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tracelet/domain/models/system_trace.dart';
 import 'package:tracelet/domain/system_traces/system_trace_id.dart';
+import 'package:tracelet/domain/system_traces/system_trace_paths.dart';
+import 'package:tracelet/domain/system_traces/system_trace_theme_id.dart';
 import 'package:tracelet/domain/system_traces/system_trace_validator.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('system trace assets', () {
-    for (final id in SystemTraceId.values) {
-      final assetPath = 'assets/system_traces/${id.name}.json';
+    for (final theme in SystemTraceThemeId.values) {
+      group(theme.folderName, () {
+        for (final id in SystemTraceId.values) {
+          final assetPath = SystemTracePaths.assetPath(theme, id);
 
-      test('$assetPath passes schema validation', () async {
-        final raw = await rootBundle.loadString(assetPath);
-        final json = jsonDecode(raw);
+          test('$assetPath passes schema validation', () async {
+            final raw = await rootBundle.loadString(assetPath);
+            final json = jsonDecode(raw);
 
-        expect(
-          () => SystemTraceValidator.validate(
-            fileName: '${id.name}.json',
-            expectedId: id.name,
-            json: json,
-          ),
-          returnsNormally,
-          reason: 'Schema validation should pass for $assetPath',
-        );
+            expect(
+              () => SystemTraceValidator.validate(
+                fileName: '${id.name}.json',
+                expectedId: id.name,
+                json: json,
+              ),
+              returnsNormally,
+              reason: 'Schema validation should pass for $assetPath',
+            );
 
-        final document = SystemTraceDocument.fromJson(json as Map<String, dynamic>);
-        expect(document.id, id.name);
-        expect(document.strokes, isNotEmpty);
+            final document =
+                SystemTraceDocument.fromJson(json as Map<String, dynamic>);
+            expect(document.id, id.name);
+            expect(document.strokes, isNotEmpty);
+          });
+        }
       });
     }
 

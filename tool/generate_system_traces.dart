@@ -2,25 +2,29 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
-/// Generates assets/system_traces/*.json from procedural definitions.
+/// Generates assets/system_traces/<theme>/*.json from procedural definitions.
 ///
 /// By default existing JSON files are NOT overwritten (hand-edited traces stay).
 /// Use `--force` to regenerate every file, or `--only=id1,id2` for specific ids.
 ///
 /// Examples:
 ///   dart run tool/generate_system_traces.dart
+///   dart run tool/generate_system_traces.dart --theme=default
 ///   dart run tool/generate_system_traces.dart --only=noMessageFound
 ///   dart run tool/generate_system_traces.dart --force
 ///   dart run tool/generate_system_traces.dart --force --output-dir=build/generated_traces
 void main(List<String> args) {
   final force = args.contains('--force');
   final onlyArg = _argValue(args, '--only=');
+  final themeArg = _argValue(args, '--theme=') ?? 'default';
   final outputDirArg = _argValue(args, '--output-dir=');
   final onlyIds = onlyArg == null
       ? null
       : onlyArg.split(',').map((id) => id.trim()).where((id) => id.isNotEmpty);
 
-  final outputDir = Directory(outputDirArg ?? 'assets/system_traces');
+  final outputDir = Directory(
+    outputDirArg ?? 'assets/system_traces/$themeArg',
+  );
   outputDir.createSync(recursive: true);
 
   final traces = <String, Map<String, dynamic>>{

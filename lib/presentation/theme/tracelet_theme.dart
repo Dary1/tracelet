@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tracelet/domain/system_traces/system_trace_theme_id.dart';
 import 'package:tracelet/presentation/theme/tracelet_colors.dart';
 import 'package:tracelet/presentation/theme/tracelet_shapes.dart';
 import 'package:tracelet/presentation/theme/tracelet_visual_tokens.dart';
 
+/// Built-in UI theme paired with [SystemTraceThemeId.defaultTheme] system traces.
 ThemeData buildTraceletTheme() {
   const tokens = TraceletVisualTokens();
 
