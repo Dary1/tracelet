@@ -1,0 +1,36 @@
+{
+  "id": "bottleError",
+  "kind": "system",
+  "coordinateSpace": "normalized",
+  "fadeDurationMs": 900,
+  "strokes": [
+    {
+      "color": "#FF453A",
+      "opacity": 0.8,
+      "points": [
+        { "x": 0.5, "y": 0.34 },
+        { "x": 0.5, "y": 0.48 }
+      ]
+    },
+    {
+      "color": "#FF453A",
+      "opacity": 0.8,
+      "points": [
+        { "x": 0.5, "y": 0.56 },
+        { "x": 0.5, "y": 0.58 }
+      ]
+    },
+    {
+      "color": "#FF453A",
+      "opacity": 0.55,
+      "points": [
+        { "x": 0.38, "y": 0.64 },
+        { "x": 0.44, "y": 0.7 },
+        { "x": 0.5, "y": 0.72 },
+        { "x": 0.56, "y": 0.7 },
+        { "x": 0.62, "y": 0.64 },
+        { "x": 0.5, "y": 0.72 }
+      ]
+    }
+  ]
+}

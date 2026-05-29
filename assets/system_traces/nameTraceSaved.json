@@ -1,0 +1,25 @@
+{
+  "id": "nameTraceSaved",
+  "kind": "system",
+  "coordinateSpace": "normalized",
+  "fadeDurationMs": 2200,
+  "strokes": [
+    {
+      "color": "#007AFF",
+      "points": [
+        {
+          "x": 0.42,
+          "y": 0.44
+        },
+        {
+          "x": 0.48,
+          "y": 0.52
+        },
+        {
+          "x": 0.62,
+          "y": 0.34
+        }
+      ]
+    }
+  ]
+}

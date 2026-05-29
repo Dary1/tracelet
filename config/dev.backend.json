@@ -1,0 +1,15 @@
+{
+  "aws_region": "ap-northeast-1",
+  "http_api_url": "https://7u36u4btpd.execute-api.ap-northeast-1.amazonaws.com/dev",
+  "websocket_api_url": "wss://26cgcyz3h0.execute-api.ap-northeast-1.amazonaws.com/dev",
+  "cognito_user_pool_id": "ap-northeast-1_teVdYaqBM",
+  "cognito_user_pool_client_id": "7ceu7ck4452oe0v3tvnfa8qgdt",
+  "bottle_queue_url": "https://sqs.ap-northeast-1.amazonaws.com/956723945470/tracelet-dev-bottle-ocean.fifo",
+  "dynamodb_table_names": {
+    "connections": "tracelet-dev-connections",
+    "friendships": "tracelet-dev-friendships",
+    "pending_direct": "tracelet-dev-pending-direct",
+    "presence": "tracelet-dev-presence",
+    "users": "tracelet-dev-users"
+  }
+}

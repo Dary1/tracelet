@@ -1,0 +1,1 @@
+enum TraceCoordinateSpace { absolute, normalized }

@@ -1,0 +1,25 @@
+{
+  "id": "notificationsOn",
+  "kind": "system",
+  "coordinateSpace": "normalized",
+  "fadeDurationMs": 2200,
+  "strokes": [
+    {
+      "color": "#007AFF",
+      "points": [
+        {
+          "x": 0.42,
+          "y": 0.44
+        },
+        {
+          "x": 0.5,
+          "y": 0.38
+        },
+        {
+          "x": 0.58,
+          "y": 0.44
+        }
+      ]
+    }
+  ]
+}

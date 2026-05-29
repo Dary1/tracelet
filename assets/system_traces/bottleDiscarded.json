@@ -1,0 +1,26 @@
+{
+  "id": "bottleDiscarded",
+  "kind": "system",
+  "coordinateSpace": "normalized",
+  "fadeDurationMs": 800,
+  "strokes": [
+    {
+      "color": "#FF453A",
+      "opacity": 0.72,
+      "points": [
+        { "x": 0.38, "y": 0.38 },
+        { "x": 0.5, "y": 0.5 },
+        { "x": 0.62, "y": 0.62 }
+      ]
+    },
+    {
+      "color": "#FF453A",
+      "opacity": 0.72,
+      "points": [
+        { "x": 0.62, "y": 0.38 },
+        { "x": 0.5, "y": 0.5 },
+        { "x": 0.38, "y": 0.62 }
+      ]
+    }
+  ]
+}
