@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tracelet/domain/hardware/button_input.dart';
-import 'package:tracelet/presentation/painting/hardware/hardware_button_layout.dart';
 import 'package:tracelet/presentation/painting/hardware/hardware_button_ripple_painter.dart';
 import 'package:tracelet/presentation/painting/hardware/hardware_button_style.dart';
 
