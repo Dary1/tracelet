@@ -7,6 +7,7 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
   const TraceletVisualTokens({
     this.canvasBackground = TraceletColors.canvas,
     this.surfaceBackground = TraceletColors.surface,
+    this.surfaceGroup = TraceletColors.surfaceGroup,
     this.surfaceElevated = TraceletColors.surfaceElevated,
     this.buttonA = TraceletColors.buttonA,
     this.buttonB = TraceletColors.buttonB,
@@ -25,6 +26,7 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
 
   final Color canvasBackground;
   final Color surfaceBackground;
+  final Color surfaceGroup;
   final Color surfaceElevated;
   final Color buttonA;
   final Color buttonB;
@@ -49,6 +51,7 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
   TraceletVisualTokens copyWith({
     Color? canvasBackground,
     Color? surfaceBackground,
+    Color? surfaceGroup,
     Color? surfaceElevated,
     Color? buttonA,
     Color? buttonB,
@@ -67,6 +70,7 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
     return TraceletVisualTokens(
       canvasBackground: canvasBackground ?? this.canvasBackground,
       surfaceBackground: surfaceBackground ?? this.surfaceBackground,
+      surfaceGroup: surfaceGroup ?? this.surfaceGroup,
       surfaceElevated: surfaceElevated ?? this.surfaceElevated,
       buttonA: buttonA ?? this.buttonA,
       buttonB: buttonB ?? this.buttonB,
@@ -94,6 +98,7 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
       canvasBackground: Color.lerp(canvasBackground, other.canvasBackground, t)!,
       surfaceBackground:
           Color.lerp(surfaceBackground, other.surfaceBackground, t)!,
+      surfaceGroup: Color.lerp(surfaceGroup, other.surfaceGroup, t)!,
       surfaceElevated: Color.lerp(surfaceElevated, other.surfaceElevated, t)!,
       buttonA: Color.lerp(buttonA, other.buttonA, t)!,
       buttonB: Color.lerp(buttonB, other.buttonB, t)!,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 abstract final class TraceletColors {
   static const canvas = Color(0xFF000000);
   static const surface = Color(0xFF0C0C0E);
+  static const surfaceGroup = Color(0xFF141416);
   static const surfaceElevated = Color(0xFF1C1C1E);
   static const appBar = Color(0xFF000000);
 

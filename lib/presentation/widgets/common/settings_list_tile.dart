@@ -60,7 +60,7 @@ class _SettingsIconBadge extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: tokens.surfaceElevated,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: TraceletShapes.iconBadgeRadius,
       ),
       child: Icon(icon, size: 20, color: color),
     );

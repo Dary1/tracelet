@@ -138,6 +138,16 @@ ThemeData buildTraceletTheme() {
       color: TraceletColors.textMuted,
       linearMinHeight: 2,
     ),
+    cardTheme: CardThemeData(
+      color: TraceletColors.surfaceGroup,
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: TraceletShapes.surfaceGroupRadius,
+      ),
+    ),
+    splashColor: TraceletColors.overlayMuted,
+    highlightColor: TraceletColors.overlayMuted.withValues(alpha: 0.5),
     extensions: const [tokens],
   );
 }
