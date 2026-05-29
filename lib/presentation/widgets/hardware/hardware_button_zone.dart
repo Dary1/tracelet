@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:tracelet/domain/hardware/button_input.dart';
 import 'package:tracelet/presentation/painting/hardware/hardware_button_ripple_painter.dart';
 import 'package:tracelet/presentation/painting/hardware/hardware_button_style.dart';
+import 'package:tracelet/presentation/theme/tracelet_visual_tokens.dart';
 
 /// Styled hit target for one virtual hardware button corner.
 class HardwareButtonZone extends StatefulWidget {
@@ -63,17 +64,39 @@ class _HardwareButtonZoneState extends State<HardwareButtonZone>
     })..start();
   }
 
+  _ResolvedStyle _resolveStyle(BuildContext context) {
+    final tokens = TraceletVisualTokens.of(context);
+    final useTokens = identical(widget.style, HardwareButtonStyle.standard);
+
+    return _ResolvedStyle(
+      fillAlpha: widget.pressed
+          ? (useTokens ? tokens.hardwarePressedAlpha : widget.style.pressedAlpha)
+          : (useTokens ? tokens.hardwareIdleAlpha : widget.style.idleAlpha),
+      borderAlpha: widget.pressed
+          ? widget.style.pressedBorderAlpha
+          : widget.style.idleBorderAlpha,
+      highlightAlpha: widget.pressed
+          ? (useTokens
+              ? tokens.hardwareHighlightPressedAlpha
+              : widget.style.pressedHighlightAlpha)
+          : (useTokens
+              ? tokens.hardwareHighlightIdleAlpha
+              : widget.style.idleHighlightAlpha),
+      borderWidth: widget.pressed
+          ? widget.style.pressedBorderWidth
+          : widget.style.idleBorderWidth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final fillAlpha = widget.pressed
-        ? widget.style.pressedAlpha
-        : widget.style.idleAlpha;
-    final borderAlpha = widget.pressed
-        ? widget.style.pressedBorderAlpha
-        : widget.style.idleBorderAlpha;
-    final highlightAlpha = widget.pressed
-        ? widget.style.pressedHighlightAlpha
-        : widget.style.idleHighlightAlpha;
+    final resolved = _resolveStyle(context);
+    final fromCorner = widget.button == VirtualButton.a
+        ? Alignment.bottomLeft
+        : Alignment.bottomRight;
+    final toCorner = widget.button == VirtualButton.a
+        ? Alignment.topRight
+        : Alignment.topLeft;
 
     return Listener(
       behavior: HitTestBehavior.opaque,
@@ -87,22 +110,18 @@ class _HardwareButtonZoneState extends State<HardwareButtonZone>
             decoration: BoxDecoration(
               borderRadius: widget.borderRadius,
               gradient: LinearGradient(
-                begin: widget.button == VirtualButton.a
-                    ? Alignment.bottomLeft
-                    : Alignment.bottomRight,
-                end: widget.button == VirtualButton.a
-                    ? Alignment.topRight
-                    : Alignment.topLeft,
+                begin: fromCorner,
+                end: toCorner,
                 colors: [
-                  widget.color.withValues(alpha: fillAlpha),
-                  widget.color.withValues(alpha: fillAlpha * 0.65),
+                  widget.color.withValues(alpha: resolved.fillAlpha),
+                  widget.color.withValues(alpha: resolved.fillAlpha * 0.55),
+                  widget.color.withValues(alpha: resolved.fillAlpha * 0.35),
                 ],
+                stops: const [0, 0.55, 1],
               ),
               border: Border.all(
-                color: widget.color.withValues(alpha: borderAlpha),
-                width: widget.pressed
-                    ? widget.style.pressedBorderWidth
-                    : widget.style.idleBorderWidth,
+                color: widget.color.withValues(alpha: resolved.borderAlpha),
+                width: resolved.borderWidth,
               ),
             ),
           ),
@@ -114,10 +133,28 @@ class _HardwareButtonZoneState extends State<HardwareButtonZone>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withValues(alpha: highlightAlpha),
+                    Colors.white.withValues(alpha: resolved.highlightAlpha),
                     Colors.transparent,
                   ],
-                  stops: const [0, 0.45],
+                  stops: const [0, 0.5],
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: widget.borderRadius,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.black.withValues(
+                      alpha: widget.pressed ? 0.18 : 0.08,
+                    ),
+                    Colors.transparent,
+                  ],
+                  stops: const [0, 0.35],
                 ),
               ),
             ),
@@ -135,4 +172,18 @@ class _HardwareButtonZoneState extends State<HardwareButtonZone>
       ),
     );
   }
+}
+
+class _ResolvedStyle {
+  const _ResolvedStyle({
+    required this.fillAlpha,
+    required this.borderAlpha,
+    required this.highlightAlpha,
+    required this.borderWidth,
+  });
+
+  final double fillAlpha;
+  final double borderAlpha;
+  final double highlightAlpha;
+  final double borderWidth;
 }

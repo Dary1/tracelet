@@ -19,8 +19,10 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
     this.traceGlowBlur = 3.5,
     this.cueRippleBlur = 6.0,
     this.cueGlowBlur = 20.0,
-    this.hardwareIdleAlpha = 0.2,
-    this.hardwarePressedAlpha = 0.5,
+    this.hardwareIdleAlpha = 0.16,
+    this.hardwarePressedAlpha = 0.48,
+    this.hardwareHighlightIdleAlpha = 0.06,
+    this.hardwareHighlightPressedAlpha = 0.14,
   });
 
   final Color canvasBackground;
@@ -39,6 +41,8 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
   final double cueGlowBlur;
   final double hardwareIdleAlpha;
   final double hardwarePressedAlpha;
+  final double hardwareHighlightIdleAlpha;
+  final double hardwareHighlightPressedAlpha;
 
   static TraceletVisualTokens of(BuildContext context) {
     return Theme.of(context).extension<TraceletVisualTokens>() ??
@@ -63,6 +67,8 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
     double? cueGlowBlur,
     double? hardwareIdleAlpha,
     double? hardwarePressedAlpha,
+    double? hardwareHighlightIdleAlpha,
+    double? hardwareHighlightPressedAlpha,
   }) {
     return TraceletVisualTokens(
       canvasBackground: canvasBackground ?? this.canvasBackground,
@@ -80,7 +86,12 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
       cueRippleBlur: cueRippleBlur ?? this.cueRippleBlur,
       cueGlowBlur: cueGlowBlur ?? this.cueGlowBlur,
       hardwareIdleAlpha: hardwareIdleAlpha ?? this.hardwareIdleAlpha,
-      hardwarePressedAlpha: hardwarePressedAlpha ?? this.hardwarePressedAlpha,
+      hardwarePressedAlpha:
+          hardwarePressedAlpha ?? this.hardwarePressedAlpha,
+      hardwareHighlightIdleAlpha:
+          hardwareHighlightIdleAlpha ?? this.hardwareHighlightIdleAlpha,
+      hardwareHighlightPressedAlpha: hardwareHighlightPressedAlpha ??
+          this.hardwareHighlightPressedAlpha,
     );
   }
 
@@ -110,6 +121,12 @@ class TraceletVisualTokens extends ThemeExtension<TraceletVisualTokens> {
           hardwareIdleAlpha + (other.hardwareIdleAlpha - hardwareIdleAlpha) * t,
       hardwarePressedAlpha: hardwarePressedAlpha +
           (other.hardwarePressedAlpha - hardwarePressedAlpha) * t,
+      hardwareHighlightIdleAlpha: hardwareHighlightIdleAlpha +
+          (other.hardwareHighlightIdleAlpha - hardwareHighlightIdleAlpha) * t,
+      hardwareHighlightPressedAlpha: hardwareHighlightPressedAlpha +
+          (other.hardwareHighlightPressedAlpha -
+                  hardwareHighlightPressedAlpha) *
+              t,
     );
   }
 }

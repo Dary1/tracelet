@@ -3,19 +3,19 @@ import 'package:tracelet/presentation/theme/tracelet_shapes.dart';
 /// Visual constants for virtual hardware button zones.
 class HardwareButtonStyle {
   const HardwareButtonStyle({
-    this.idleAlpha = 0.18,
-    this.pressedAlpha = 0.52,
-    this.idleBorderAlpha = 0.42,
-    this.pressedBorderAlpha = 0.92,
+    this.idleAlpha = 0.16,
+    this.pressedAlpha = 0.48,
+    this.idleBorderAlpha = 0.38,
+    this.pressedBorderAlpha = 0.88,
     this.idleBorderWidth = 1.0,
-    this.pressedBorderWidth = 2.0,
-    this.idleHighlightAlpha = 0.08,
-    this.pressedHighlightAlpha = 0.16,
+    this.pressedBorderWidth = 1.5,
+    this.idleHighlightAlpha = 0.06,
+    this.pressedHighlightAlpha = 0.14,
     this.cornerRadius = TraceletShapes.hardwareButtonRadius,
-    this.rippleDurationMs = 650,
-    this.rippleStrokeWidth = 2.5,
-    this.rippleBlur = 5.5,
-    this.rippleMaxAlpha = 0.5,
+    this.rippleDurationMs = 600,
+    this.rippleStrokeWidth = 2.0,
+    this.rippleBlur = 6.0,
+    this.rippleMaxAlpha = 0.45,
   });
 
   final double idleAlpha;
