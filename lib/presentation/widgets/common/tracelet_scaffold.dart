@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tracelet/presentation/theme/tracelet_visual_tokens.dart';
 
@@ -15,11 +16,20 @@ class TraceletScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = TraceletVisualTokens.of(context);
+    final canPop = Navigator.of(context).canPop();
 
     return Scaffold(
       backgroundColor: tokens.surfaceBackground,
       appBar: AppBar(
         title: Text(title),
+        leading: canPop
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new, size: 20),
+                tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                onPressed: () => Navigator.of(context).maybePop(),
+              )
+            : null,
+        automaticallyImplyLeading: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Divider(

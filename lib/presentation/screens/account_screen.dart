@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracelet/application/auth_providers.dart';
 import 'package:tracelet/domain/auth/social_provider.dart';
 import 'package:tracelet/domain/auth/social_sign_in_unavailable_exception.dart';
+import 'package:tracelet/presentation/theme/tracelet_shapes.dart';
 import 'package:tracelet/presentation/theme/tracelet_spacing.dart';
 import 'package:tracelet/presentation/theme/tracelet_typography.dart';
+import 'package:tracelet/presentation/theme/tracelet_visual_tokens.dart';
 import 'package:tracelet/presentation/widgets/common/social_sign_in_button.dart';
 import 'package:tracelet/presentation/widgets/common/tracelet_scaffold.dart';
 
@@ -29,6 +31,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final tokens = TraceletVisualTokens.of(context);
     final auth = ref.watch(authNotifierProvider).value;
     final hostedUi = ref.watch(cognitoHostedUiAuthProvider);
     final error = auth?.errorMessage;
@@ -38,17 +41,29 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       body: ListView(
         padding: const EdgeInsets.all(TraceletSpacing.screenPadding),
         children: [
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              auth?.accountLabel ?? 'Guest',
-              style: TraceletTypography.screenTitle(context),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: tokens.surfaceElevated,
+              borderRadius: TraceletShapes.listTileRadius,
             ),
-            subtitle: Text(
-              auth?.isSignedIn == true
-                  ? 'Your traces sync to your account'
-                  : 'Browsing as guest — sign in to keep friends and settings across devices',
-              style: TraceletTypography.bodyMuted(context),
+            child: Padding(
+              padding: const EdgeInsets.all(TraceletSpacing.listHorizontal),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    auth?.accountLabel ?? 'Guest',
+                    style: TraceletTypography.screenTitle(context),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    auth?.isSignedIn == true
+                        ? 'Your traces sync to your account'
+                        : 'Browsing as guest — sign in to keep friends and settings across devices',
+                    style: TraceletTypography.bodyMuted(context),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: TraceletSpacing.sectionGap),
@@ -64,21 +79,34 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
               child: const Text('Continue as guest'),
             ),
           ] else ...[
-            SocialSignInButton(
-              label: 'Continue with Google',
-              icon: Icons.g_mobiledata,
-              enabled: !_busy && hostedUi.isGoogleConfigured,
-              onPressed: () => _signIn(SocialProvider.google),
-            ),
-            const SizedBox(height: TraceletSpacing.itemGap),
-            SocialSignInButton(
-              label: 'Continue with Apple',
-              icon: Icons.apple,
-              enabled: !_busy && hostedUi.isAppleConfigured,
-              onPressed: () => _signIn(SocialProvider.apple),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: tokens.surfaceElevated,
+                borderRadius: TraceletShapes.listTileRadius,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(TraceletSpacing.itemGap),
+                child: Column(
+                  children: [
+                    SocialSignInButton(
+                      label: 'Continue with Google',
+                      icon: Icons.g_mobiledata,
+                      enabled: !_busy && hostedUi.isGoogleConfigured,
+                      onPressed: () => _signIn(SocialProvider.google),
+                    ),
+                    const SizedBox(height: TraceletSpacing.itemGap),
+                    SocialSignInButton(
+                      label: 'Continue with Apple',
+                      icon: Icons.apple,
+                      enabled: !_busy && hostedUi.isAppleConfigured,
+                      onPressed: () => _signIn(SocialProvider.apple),
+                    ),
+                  ],
+                ),
+              ),
             ),
             if (!hostedUi.isGoogleConfigured || !hostedUi.isAppleConfigured) ...[
-              const SizedBox(height: 20),
+              const SizedBox(height: TraceletSpacing.accountHintGap),
               Text(
                 'Social sign-in requires Google and Apple to be configured in Cognito. '
                 'You can keep using Tracelet as a guest until then.',
@@ -89,7 +117,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             ],
           ],
           if (error != null) ...[
-            const SizedBox(height: 20),
+            const SizedBox(height: TraceletSpacing.accountHintGap),
             Text(error, style: TraceletTypography.error(context)),
           ],
         ],

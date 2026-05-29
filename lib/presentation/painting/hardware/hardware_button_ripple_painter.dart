@@ -24,6 +24,7 @@ class HardwareButtonRipplePainter extends CustomPainter {
     final radius =
         size.shortestSide * HardwareButtonLayout.rippleRadiusFraction * progress;
     final alpha = (1 - progress) * style.rippleMaxAlpha;
+    final innerAlpha = alpha * 0.55;
 
     final paint = Paint()
       ..isAntiAlias = true
@@ -33,6 +34,16 @@ class HardwareButtonRipplePainter extends CustomPainter {
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, style.rippleBlur);
 
     canvas.drawCircle(origin, radius, paint);
+
+    if (progress < 0.65) {
+      final innerPaint = Paint()
+        ..isAntiAlias = true
+        ..color = color.withValues(alpha: innerAlpha)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = style.rippleStrokeWidth * 0.6
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, style.rippleBlur * 0.6);
+      canvas.drawCircle(origin, radius * 0.72, innerPaint);
+    }
   }
 
   @override

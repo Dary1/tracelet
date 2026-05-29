@@ -80,4 +80,20 @@ abstract final class TraceletTypography {
         ) ??
         TextStyle(color: tokens.textMuted);
   }
+
+  static TextStyle brandMark(BuildContext context) {
+    final tokens = TraceletVisualTokens.of(context);
+    return Theme.of(context).textTheme.titleLarge?.copyWith(
+          color: tokens.textPrimary,
+          fontSize: 22,
+          letterSpacing: -0.4,
+          fontWeight: FontWeight.w600,
+        ) ??
+        TextStyle(
+          color: tokens.textPrimary,
+          fontSize: 22,
+          letterSpacing: -0.4,
+          fontWeight: FontWeight.w600,
+        );
+  }
 }

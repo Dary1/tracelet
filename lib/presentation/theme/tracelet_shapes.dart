@@ -7,6 +7,8 @@ abstract final class TraceletShapes {
   static const buttonRadiusValue = 14.0;
   static const snackBarRadiusValue = 12.0;
   static const listTileRadiusValue = 12.0;
+  static const iconBadgeRadiusValue = 10.0;
+  static const surfaceGroupRadiusValue = 16.0;
 
   static BorderRadius hardwareButtonA = const BorderRadius.only(
     topRight: Radius.circular(hardwareButtonRadius),
@@ -23,4 +25,10 @@ abstract final class TraceletShapes {
 
   static BorderRadius listTileRadius =
       BorderRadius.circular(listTileRadiusValue);
+
+  static BorderRadius iconBadgeRadius =
+      BorderRadius.circular(iconBadgeRadiusValue);
+
+  static BorderRadius surfaceGroupRadius =
+      BorderRadius.circular(surfaceGroupRadiusValue);
 }
