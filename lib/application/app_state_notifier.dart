@@ -68,7 +68,7 @@ class AppStateNotifier extends Notifier<AppState> {
           _feedback.overlay(VisualCueType.nameTraceSaved);
           await _feedback.trace(SystemTraceId.nameTraceSaved, clearFirst: false);
         } else {
-          await _feedback.alert();
+          await _feedback.trace(SystemTraceId.nameTraceSaveFailed, clearFirst: false);
         }
         state = state.copyWith(mode: AppMode.specificUserSend);
       }
@@ -217,7 +217,7 @@ class AppStateNotifier extends Notifier<AppState> {
       await _feedback.noMessageFound();
       return;
     }
-    await _playMessage(message);
+    await _playMessage(message, intro: SystemTraceId.messagePlayback);
   }
 
   Future<void> _receiveRandomMessage() async {
@@ -233,7 +233,7 @@ class AppStateNotifier extends Notifier<AppState> {
         dailyRandomReceiveCount: state.settings.dailyRandomReceiveCount + 1,
       );
       await _persistSettings(updated);
-      await _playMessage(message);
+      await _playMessage(message, intro: SystemTraceId.randomMessage);
     } on NoBottleAvailableException {
       await _feedback.noMessageFound();
     } on BottleMailException {
@@ -250,13 +250,13 @@ class AppStateNotifier extends Notifier<AppState> {
       await _feedback.noMessageFound();
       return;
     }
-    await _playMessage(message);
+    await _playMessage(message, intro: SystemTraceId.replayMessage);
   }
 
-  Future<void> _playMessage(TraceMessage message) async {
+  Future<void> _playMessage(TraceMessage message, {SystemTraceId? intro}) async {
     state = state.copyWith(lastReceivedMessage: message);
     if (message.points.isNotEmpty) {
-      await _feedback.playReceivedMessage(message);
+      await _feedback.playReceivedMessage(message, intro: intro);
     } else {
       await _feedback.noMessageFound();
     }

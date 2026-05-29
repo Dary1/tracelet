@@ -66,12 +66,19 @@ class DeviceFeedback {
     await trace(SystemTraceId.alert);
   }
 
-  Future<void> playReceivedMessage(TraceMessage message) async {
+  Future<void> playReceivedMessage(
+    TraceMessage message, {
+    SystemTraceId? intro,
+  }) async {
     overlay(VisualCueType.messagePlayStart);
+    if (intro != null) {
+      await trace(intro);
+    }
     await TraceletHaptics.messagePlayback();
     await _ref.read(traceCanvasProvider.notifier).playTrace(
           message.points,
           playbackProfile: message.playbackProfile,
+          clearFirst: intro != null,
         );
   }
 
