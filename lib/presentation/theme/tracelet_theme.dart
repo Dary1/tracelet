@@ -84,7 +84,9 @@ ThemeData buildTraceletTheme() {
       minVerticalPadding: 0,
       horizontalTitleGap: 16,
       shape: RoundedRectangleBorder(
-        borderRadius: TraceletShapes.listTileRadius,
+        borderRadius: BorderRadius.all(
+          Radius.circular(TraceletShapes.listTileRadiusValue),
+        ),
       ),
     ),
     switchTheme: SwitchThemeData(
