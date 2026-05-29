@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tracelet/presentation/theme/tracelet_colors.dart';
 import 'package:tracelet/presentation/theme/tracelet_shapes.dart';
@@ -69,8 +70,12 @@ ThemeData buildTraceletTheme() {
       elevation: 0,
       scrolledUnderElevation: 0,
       centerTitle: true,
+      toolbarHeight: 52,
+      titleSpacing: 0,
+      leadingWidth: 56,
       titleTextStyle: textTheme.titleLarge,
       iconTheme: const IconThemeData(color: TraceletColors.textSecondary),
+      actionsIconTheme: const IconThemeData(color: TraceletColors.textSecondary),
     ),
     dividerTheme: const DividerThemeData(
       color: TraceletColors.divider,
@@ -137,6 +142,20 @@ ThemeData buildTraceletTheme() {
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: TraceletColors.textMuted,
       linearMinHeight: 2,
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: TraceletColors.textSecondary,
+        highlightColor: TraceletColors.overlayMuted,
+        splashRadius: 20,
+      ),
+    ),
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      },
     ),
     extensions: const [tokens],
   );
