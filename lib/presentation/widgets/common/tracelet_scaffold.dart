@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tracelet/presentation/theme/tracelet_spacing.dart';
-import 'package:tracelet/presentation/theme/tracelet_typography.dart';
 import 'package:tracelet/presentation/theme/tracelet_visual_tokens.dart';
 
 /// Shared scaffold for secondary screens (settings, account).
